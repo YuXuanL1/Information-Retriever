@@ -57,6 +57,10 @@ To evaluate a single run (i.e. a single file containing 40,000 or 10,000 lines o
 
 ``` perl trec_eval.pl [-q] qrel_file results_file ```
 
-## Report
+## Results
+![螢幕擷取畫面 2025-03-16 172257](https://github.com/user-attachments/assets/9fa818d7-2b88-480a-8e50-ee05999c6178)
+
+![螢幕擷取畫面 2025-03-16 172141](https://github.com/user-attachments/assets/69472360-58af-4d34-8c54-26fd135da7d7)
+
 For more detail analysis and results you can take a look at this [report](https://github.com/user-attachments/files/19270306/WSM_project2.1.pdf).
 
