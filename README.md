@@ -58,9 +58,68 @@ To evaluate a single run (i.e. a single file containing 40,000 or 10,000 lines o
 ``` perl trec_eval.pl [-q] qrel_file results_file ```
 
 ## Results
+### Part1: 3 (ranking functions) * 2 (with & without stemming) = 6 files
 ![螢幕擷取畫面 2025-03-16 172257](https://github.com/user-attachments/assets/9fa818d7-2b88-480a-8e50-ee05999c6178)
+- In the low recall region, the curves of BM25, BM25 stemmed, and
+Jelinek-Mercer are significantly higher than the others, performing better. As
+recall increases, the precision differences become smaller.
+- Jelinek-Mercer shows stable performance in the high recall region, with a
+slower decline. There is a noticeable performance difference between
+Jelinek-Mercer and Jelinek-Mercer stemmed.
+- MLE with Laplace Smoothing performs poorly regardless of stemming.
 
+#### Discussion
+1. Impact of Stemming
+    - Loss of specificity: Stemming might merge terms with different meanings and cause
+    the precision to be lower. This is evident in all ranking functions with stemming,
+    where the precision is lower across various K values due to possibly overgeneralized
+    matching.
+    - Small performance gains: In many cases (e.g., Jelinek-Mercer Stemmed vs.
+    Non-stemmed), stemming offers little improvement, suggesting it may not always be
+    beneficial for complex tasks.
+
+2. Compare between three ranking functions
+    - OKAPI BM25: BM25 effectively normalizes term frequency, often outperforming
+    the other models due to its handling of term saturation and document length
+    normalization.
+    - MLE with Laplace Smoothing: Performs poorly in recall-precision averages and
+    precision at K. The likely reason is that MLE assumes uniform distribution, which
+    doesn't account for variability in query or document distributions. While
+    computationally simpler, this simplicity may limit its retrieval effectiveness.
+    - Jelinek-Mercer Smoothing: Performs better than MLE with Laplace Smoothing in
+    all metrics, offering a balanced approach by interpolating between document-level
+    and collection-level probabilities. This flexibility makes it effective in noisy or sparse
+    datasets.
+
+#### Conclusion
+When it comes to optimizing smoothing, prefer Jelinek-Mercer over MLE with Laplace
+Smoothing for smoother and more adaptive query modeling. Jelinek-Mercer smooths
+probability distributions effectively, but BM25 remains more robust for ranking relevance in
+diverse datasets.
+
+-------------------------------------
+
+### Part2: 3 (ranking functions) + 1 (learning to rank) = 4 files
 ![螢幕擷取畫面 2025-03-16 172141](https://github.com/user-attachments/assets/69472360-58af-4d34-8c54-26fd135da7d7)
+- The curves for BM25 and LTR_model2 (deep learning) are significantly
+higher than other models, showing better performance, especially in the low
+recall regions.
+- MLE Smoothed has weaker overall performance, especially at low recall rates,
+where it performs noticeably worse than other models.
+- As recall increases, the precision differences between the models become
+smaller.
+
+#### Discussion
+1. Model Comparison: Deep Learning vs XGBoost
+  In this project, the deep learning model outperformed XGBoost, mainly due to the following reasons:
+    - Complex Pattern Learning: Deep models can capture non-linear, high-dimensional relationships better than tree-based models, making them more suitable for unstructured text data.
+    - Automatic Feature Representation: Unlike XGBoost, which relies on hand-crafted features, deep learning learns hierarchical representations directly from raw data, improving relevance prediction.
+    - Scalability: Deep models scale well with large datasets using techniques like SGD and dropout, while XGBoost requires careful tuning and may overfit on complex data.
+    - Regularization & Generalization: Built-in techniques such as dropout and batch normalization help deep models avoid overfitting more robustly than traditional boosting.
+    - Hyperparameter Tuning: While XGBoost can perform well with optimal settings, deep learning models often benefit more from flexible and automated tuning strategies.
+
+#### Conclusion
+Deep learning models excel in semantic understanding and contextual modeling, which are essential for IR tasks. XGBoost remains effective for structured data with well-designed features but is less suited for capturing nuanced text relationships.
 
 For more detail analysis and results you can take a look at this [report](https://github.com/user-attachments/files/19270306/WSM_project2.1.pdf).
 
