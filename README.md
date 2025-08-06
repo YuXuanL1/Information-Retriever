@@ -1,7 +1,7 @@
 # Building IR systems based on the Pyserini Project
 
 ## Introduction
-In this project I will implement several different retrieval methods, i.e. algorithms that given a user's request (query) and a corpus of documents assign a score to each document according to its relevance to the query. Some of these retrieval methods will be the implementation of the basic retrieval models (e.g. TF-IDF, BM25, Language Models with different Smoothing). In this case, I will need the toolkits of [Pyserini Project](https://github.com/castorini/pyserini), which includes search engines, browser toolbars, text analysis tools, and data resources that support research and development of information retrieval and text mining.
+In this project I implement several different retrieval methods, i.e. algorithms that given a user's request (query) and a corpus of documents assign a score to each document according to its relevance to the query. Some of these retrieval methods will be the implementation of the basic retrieval models (e.g. TF-IDF, BM25, Language Models with different Smoothing). In this case, I use the toolkits of [Pyserini Project](https://github.com/castorini/pyserini), which includes search engines, browser toolbars, text analysis tools, and data resources that support research and development of information retrieval and text mining.
 ![螢幕擷取畫面 2025-03-16 171226](https://github.com/user-attachments/assets/ad1068a8-22fc-4a69-8b42-d38d5da5b134)
 
 
